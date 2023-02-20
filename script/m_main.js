@@ -108,6 +108,27 @@ $(function(){
     return false;
   });
 
+  // ajax메서드로 json데이터 불러오기
+  $('.m_box a').click(function(){
+    $(this).hide(); //더보기 버튼은 숨기고
+
+    $.ajax({
+      url:'./script/product.json',
+      type:'post',
+      dataType:'json',
+      success:function(result){
+        let t='<ul>';
+        $.each(result.product,function(i,e){
+          t+="<li><img src='./images/"+e.path+"' alt='"+e.tit+"'></li>";
+        });
+        t+="</ul>";
+        //데이터를 t변수에 담아서 list박스에 내용을 출력한다.
+        $('#list').html(t);
+      }
+    });
+    return false;
+  });
+  
 });
 
 //이벤트 슬라이드
@@ -181,6 +202,8 @@ let Timer2 = setInterval(function(){ // 3초마다 0, 1, 2를 mslide에 넘겨�
     mslide(0); //0을 넘겨준다.
   }
 },3000);
+
+
 
 // 자바스크립트로 윈도우 스크롤값 구하기
 window.addEventListener('scroll', ()=>{
